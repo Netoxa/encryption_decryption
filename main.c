@@ -46,19 +46,10 @@ int main(int argc, char *argv[])
                 i--;
 
             }
-        
-            for(i = 0; i < 8; i++){
-
-                printf("%d", letter_1[i]);
-
-
-            }
-        
-       i = 7;
-
-       printf("\n");
     
        check_word = 1;
+
+       i = 7;
 
         }else{
   
@@ -72,34 +63,52 @@ int main(int argc, char *argv[])
 
             }   
         
+            check_word = 0;
+
+        
+
             for(i = 0; i < 8; i++){
 
-            printf("%d", letter_2[i]);
+                printf("%d", letter_1[i]);
+
+            }
+
+            printf("\n");
+
+            for(i = 0; i < 8; i++){
+
+                printf("%d", letter_2[i]);
+
+            }
+            
+            printf("\n");
+
+            letter_final[0] = letter_1[4];
+            letter_final[1] = letter_1[1];
+            letter_final[2] = letter_1[2];
+            letter_final[3] = letter_1[3];
+            
+            letter_final[4] = letter_2[4];
+            letter_final[5] = letter_2[1];
+            letter_final[6] = letter_2[2];
+            letter_final[7] = letter_2[3];
 
 
-        }
+            for(i = 0; i < 8; i++){
 
-        i = 7;
-
-        printf("\n");
+                printf("%d", letter_final[i]);
     
-        check_word = 0;
+                letter_1[i] = 0;
 
-        }
+                letter_2[i] = 0;
 
-        for(i = 0; i < 8; i++){
+            }
 
-            letter_1[i] = 0;
+            i = 7;
 
-        }
+            printf("\n\n");
 
-        for(i = 0; i < 8; i++){
-
-            letter_2[i] = 0;
-
-        }
-
-        i = 7;
-    }   
+        }   
+    }
 
 }

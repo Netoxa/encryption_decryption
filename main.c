@@ -51,9 +51,8 @@ int main(int argc, char *argv[])
 
                 printf("%d", letter_1[i]);
 
-                letter_1[i] = 0;
 
-        }
+            }
         
        i = 7;
 
@@ -77,7 +76,6 @@ int main(int argc, char *argv[])
 
             printf("%d", letter_2[i]);
 
-            letter_2[i] = 0;
 
         }
 
@@ -89,6 +87,19 @@ int main(int argc, char *argv[])
 
         }
 
+        for(i = 0; i < 8; i++){
+
+            letter_1[i] = 0;
+
+        }
+
+        for(i = 0; i < 8; i++){
+
+            letter_2[i] = 0;
+
+        }
+
+        i = 7;
     }   
 
 }

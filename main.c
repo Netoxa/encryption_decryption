@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     char letter_1[8] = {0,0,0,0,0,0,0,0};
     char letter_2[8] = {0,0,0,0,0,0,0,0};
     char letter_final[8];
+    int final_letter = 0;
     int i = 7;
     int lettre;
     int check_word = 0;
@@ -67,7 +68,7 @@ int main(int argc, char *argv[])
 
         
 
-            for(i = 0; i < 8; i++){
+            /*for(i = 0; i < 8; i++){
 
                 printf("%d", letter_1[i]);
 
@@ -81,7 +82,7 @@ int main(int argc, char *argv[])
 
             }
             
-            printf("\n");
+            printf("\n");*/
 
             letter_final[0] = letter_1[4];
             letter_final[1] = letter_1[1];
@@ -93,10 +94,33 @@ int main(int argc, char *argv[])
             letter_final[6] = letter_2[2];
             letter_final[7] = letter_2[3];
 
+            if(letter_final[0] == 1)
+                final_letter = final_letter + 128;
+            
+            if(letter_final[1] == 1)
+                final_letter = final_letter + 64;
+            
+            if(letter_final[2] == 1)
+                final_letter = final_letter + 32;
+                
+            if(letter_final[3] == 1)
+                final_letter = final_letter + 16;
+                
+            if(letter_final[4] == 1)
+                final_letter = final_letter + 8;
+
+            if(letter_final[5] == 1)
+                final_letter = final_letter + 4;
+
+            if(letter_final[6] == 1)
+                final_letter = final_letter + 2;
+
+            if(letter_final[7] == 1)
+                final_letter = final_letter + 1;
 
             for(i = 0; i < 8; i++){
 
-                printf("%d", letter_final[i]);
+                //printf("%d", letter_final[i]);
     
                 letter_1[i] = 0;
 
@@ -104,9 +128,13 @@ int main(int argc, char *argv[])
 
             }
 
+            printf("%d ", final_letter);
+
+            final_letter = 0;
+
             i = 7;
 
-            printf("\n\n");
+            //printf("\n\n");
 
         }   
     }

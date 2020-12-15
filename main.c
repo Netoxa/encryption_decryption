@@ -12,11 +12,10 @@ int main(int argc, char *argv[])
     char letter_1[8] = {0};
     char letter_2[8] = {0};
     char letter_final[8];
-    int final_letter[77] = {0};
+    char final_letter = 0;
     int i = 7;
     int lettre;
     int check_word = 0;
-    int j = 0;
 
     printf("choose the file to decrypt : ");
 
@@ -96,28 +95,28 @@ int main(int argc, char *argv[])
             letter_final[7] = letter_2[3];
 
             if(letter_final[0] == 1)
-                final_letter[j] = final_letter[j] + 128;
+                final_letter = final_letter + 128;
             
             if(letter_final[1] == 1)
-                final_letter[j] = final_letter[j] + 64;
+                final_letter = final_letter + 64;
             
             if(letter_final[2] == 1)
-                final_letter[j] = final_letter[j] + 32;
+                final_letter = final_letter + 32;
                 
             if(letter_final[3] == 1)
-                final_letter[j] = final_letter[j] + 16;
+                final_letter = final_letter + 16;
                 
             if(letter_final[4] == 1)
-                final_letter[j] = final_letter[j] + 8;
+                final_letter = final_letter + 8;
 
             if(letter_final[5] == 1)
-                final_letter[j] = final_letter[j] + 4;
+                final_letter = final_letter + 4;
 
             if(letter_final[6] == 1)
-                final_letter[j] = final_letter[j] + 2;
+                final_letter = final_letter + 2;
 
             if(letter_final[7] == 1)
-                final_letter[j] = final_letter[j] + 1;
+                final_letter = final_letter + 1;
 
             for(i = 0; i < 8; i++){
 
@@ -128,20 +127,18 @@ int main(int argc, char *argv[])
                 letter_2[i] = 0;
 
             }
-            
-            if(final_letter[j] != 13){
 
-                fputc(final_letter[j], fic2);
+            //printf("%c", final_letter);
+
+            if(final_letter != 13){
+
+                fputc(final_letter, fic2);
 
             }
 
-            //printf(" %d", final_letter[j]);
-
-            //final_letter = 0;
+            final_letter = 0;
 
             i = 7;
-
-            j++;
 
             //printf("\n\n");
 

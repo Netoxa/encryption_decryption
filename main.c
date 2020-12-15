@@ -12,11 +12,11 @@ int main(int argc, char *argv[])
     char letter_1[8] = {0};
     char letter_2[8] = {0};
     char letter_final[8];
-    char final_letter = 0;
+    int final_letter;
     int i = 7;
     int lettre;
     int check_word = 0;
-
+    
     printf("choose the file to decrypt : ");
 
     fgets(file_crypt, 255, stdin);
@@ -30,9 +30,9 @@ int main(int argc, char *argv[])
         file_decrypt[i] = file_crypt[i];
     }
 
-    FILE *fic = fopen(file_crypt, "r");
+    FILE *fic = fopen(file_crypt, "rb");
 
-    FILE *fic2 = fopen(file_decrypt, "w");
+    FILE *fic2 = fopen(file_decrypt, "wb");
 
     i = 7;
 
@@ -50,9 +50,9 @@ int main(int argc, char *argv[])
 
             }
     
-       check_word = 1;
+        check_word = 1;
 
-       i = 7;
+        i = 7;
 
         }else{
   
@@ -67,22 +67,6 @@ int main(int argc, char *argv[])
             }   
         
             check_word = 0;
-
-            /*for(i = 0; i < 8; i++){
-
-                printf("%d", letter_1[i]);
-
-            }
-
-            printf("\n");
-
-            for(i = 0; i < 8; i++){
-
-                printf("%d", letter_2[i]);
-
-            }
-            
-            printf("\n");*/
 
             letter_final[0] = letter_1[4];
             letter_final[1] = letter_1[1];
@@ -119,8 +103,6 @@ int main(int argc, char *argv[])
                 final_letter = final_letter + 1;
 
             for(i = 0; i < 8; i++){
-
-                //printf("%d", letter_final[i]);
     
                 letter_1[i] = 0;
 
@@ -128,19 +110,11 @@ int main(int argc, char *argv[])
 
             }
 
-            //printf("%c", final_letter);
-
-            if(final_letter != 13){
-
-                fputc(final_letter, fic2);
-
-            }
+            fputc(final_letter, fic2);
 
             final_letter = 0;
 
             i = 7;
-
-            //printf("\n\n");
 
         }   
     }

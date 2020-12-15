@@ -9,15 +9,16 @@ int main(int argc, char *argv[])
 
     char file_crypt[256];
     char file_decrypt[256];
-    char letter_1[8] = {0,0,0,0,0,0,0,0};
-    char letter_2[8] = {0,0,0,0,0,0,0,0};
+    char letter_1[8] = {0};
+    char letter_2[8] = {0};
     char letter_final[8];
-    int final_letter = 0;
+    int final_letter[77] = {0};
     int i = 7;
     int lettre;
     int check_word = 0;
+    int j = 0;
 
-    /*printf("choose the file to decrypt : ");
+    printf("choose the file to decrypt : ");
 
     fgets(file_crypt, 255, stdin);
 
@@ -25,14 +26,16 @@ int main(int argc, char *argv[])
             file_crypt[strlen(file_crypt) - 1] = '\0';
 
     
-    /*for(i = 0; i < strlen(file_crypt) - 1; i++){
+    for(i = 0; i < strlen(file_crypt) - 1; i++){
 
         file_decrypt[i] = file_crypt[i];
     }
 
-    printf("\n %s", file_decrypt);*/
+    FILE *fic = fopen(file_crypt, "r");
 
-    FILE *fic = fopen("EPREUVE 1.txtc", "r");
+    FILE *fic2 = fopen(file_decrypt, "w");
+
+    i = 7;
 
     while((lettre = fgetc(fic)) != EOF){
 
@@ -66,8 +69,6 @@ int main(int argc, char *argv[])
         
             check_word = 0;
 
-        
-
             /*for(i = 0; i < 8; i++){
 
                 printf("%d", letter_1[i]);
@@ -95,28 +96,28 @@ int main(int argc, char *argv[])
             letter_final[7] = letter_2[3];
 
             if(letter_final[0] == 1)
-                final_letter = final_letter + 128;
+                final_letter[j] = final_letter[j] + 128;
             
             if(letter_final[1] == 1)
-                final_letter = final_letter + 64;
+                final_letter[j] = final_letter[j] + 64;
             
             if(letter_final[2] == 1)
-                final_letter = final_letter + 32;
+                final_letter[j] = final_letter[j] + 32;
                 
             if(letter_final[3] == 1)
-                final_letter = final_letter + 16;
+                final_letter[j] = final_letter[j] + 16;
                 
             if(letter_final[4] == 1)
-                final_letter = final_letter + 8;
+                final_letter[j] = final_letter[j] + 8;
 
             if(letter_final[5] == 1)
-                final_letter = final_letter + 4;
+                final_letter[j] = final_letter[j] + 4;
 
             if(letter_final[6] == 1)
-                final_letter = final_letter + 2;
+                final_letter[j] = final_letter[j] + 2;
 
             if(letter_final[7] == 1)
-                final_letter = final_letter + 1;
+                final_letter[j] = final_letter[j] + 1;
 
             for(i = 0; i < 8; i++){
 
@@ -127,16 +128,27 @@ int main(int argc, char *argv[])
                 letter_2[i] = 0;
 
             }
+            
+            if(final_letter[j] != 13){
 
-            printf("%d ", final_letter);
+                fputc(final_letter[j], fic2);
 
-            final_letter = 0;
+            }
+
+            //printf(" %d", final_letter[j]);
+
+            //final_letter = 0;
 
             i = 7;
+
+            j++;
 
             //printf("\n\n");
 
         }   
     }
+
+    fclose(fic);
+    fclose(fic2);
 
 }

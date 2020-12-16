@@ -23,6 +23,15 @@ void Binary_to_Decimal(char *array, char final_letter, FILE *fic2){
 
     fputc(final_letter, fic2);
 
+    final_letter = 0;
+
+}
+
+void Close_File(FILE *fic, FILE *fic2){
+
+    fclose(fic);
+    fclose(fic2);
+
 }
 
 int main(int argc, char *argv[])
@@ -118,16 +127,13 @@ int main(int argc, char *argv[])
 
                 }
 
-                final_letter = 0;
-
                 i = 7;
 
             }   
         }
 
-        fclose(fic);
-        fclose(fic2);
-
+        Close_File(fic, fic2);
+    
     }else{
 
         printf("choose the file to crypt : ");
@@ -178,11 +184,7 @@ int main(int argc, char *argv[])
 
             Binary_to_Decimal(letter_1, final_letter, fic2);
 
-            final_letter = 0;
-
             Binary_to_Decimal(letter_2, final_letter, fic2);
-
-            final_letter = 0;
 
             for(i = 0; i < 8; i++){
     
@@ -194,8 +196,7 @@ int main(int argc, char *argv[])
             
         }
 
-        fclose(fic);
-        fclose(fic2);
+        Close_File(fic, fic2);
 
     }
 }

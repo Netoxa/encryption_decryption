@@ -17,9 +17,15 @@ int main(int argc, char *argv[])
     int i;
     int lettre;
     int check_word = 0;
-    int choice = 1;
+    int choice = 0;
 
-    if(choice == 1){
+    printf("\n What do you want to do ? :\n 0 : Decrypt a file\n Any other number : Crypt a file\n Your answer : ");
+
+    scanf("%d", &choice);
+
+    fflush(stdin);
+
+    if(choice == 0){
     
         printf("choose the file to decrypt : ");
 

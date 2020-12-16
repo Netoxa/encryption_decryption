@@ -246,5 +246,9 @@ int main(int argc, char *argv[])
             i = 7;
             
         }
+
+        fclose(fic);
+        fclose(fic2);
+
     }
 }

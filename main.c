@@ -14,6 +14,7 @@ void Binary_to_Decimal(int *array, char final_letter, FILE *fic2){
     for(i = 0; i < 8; i++){
 
         if(array[i] == 1)
+            
             final_letter = final_letter + number;
 
         number = number / 2;
@@ -33,11 +34,11 @@ void Close_File(FILE *fic, FILE *fic2){
 
 }
 
-int Check_Matrix(char *file_crypt, FILE *fic, int j, char *check, int position){
+int Check_Matrix(char *check_matrix, FILE *fic, int j, char *check, int position){
 
-    fgets(file_crypt, position, fic);
+    fgets(check_matrix, position, fic);
     
-    if(strcmp(file_crypt, check) == 0){
+    if(strcmp(check_matrix, check) == 0){
 
         j++;
 
@@ -47,17 +48,17 @@ int Check_Matrix(char *file_crypt, FILE *fic, int j, char *check, int position){
 
 }
   
-int Check_bits_Matrix(char *file_crypt, FILE *fic, int i, int j, int position){
+int Check_bits_Matrix(char *check_matrix, FILE *fic, int i, int j, int position){
 
-    fgets(file_crypt, 9, fic);
+    fgets(check_matrix, 9, fic);
         
         for(i = 0; i < 8; i++){
         
-            if(file_crypt[i] == '1')
+            if(check_matrix[i] == '1')
         
                 j++;
         
-            if(file_crypt[i] == '0')
+            if(check_matrix[i] == '0')
         
                 j++;
         
@@ -67,69 +68,73 @@ int Check_bits_Matrix(char *file_crypt, FILE *fic, int i, int j, int position){
 
 }
 
+
+
 int main(int argc, char *argv[])
 {
 
+
     char file_crypt[256];
     char file_decrypt[256];
-    char check_space;
+    char check_matrix[256];
     int letter_1[8] = {0};
     int letter_2[8] = {0};
     int letter_final[8] = {0};
-    char final_letter;
+    char final_letter = 0;
     int i;
     int j = 0;
     int lettre;
     int check_word = 0;
     int choice;
 
-    printf("choose the matrix file : ");
+    while(j != 38){
 
-    fgets(file_crypt, 255, stdin);
+        printf("\n Choose the matrix file : ");
+
+        fgets(check_matrix, 255, stdin);
         
-        if(file_crypt[strlen(file_crypt) - 1] == '\n')
-                file_crypt[strlen(file_crypt) - 1] = '\0';
+        if(check_matrix[strlen(check_matrix) - 1] == '\n')
+            check_matrix[strlen(check_matrix) - 1] = '\0';
 
-    FILE *fic = fopen(file_crypt, "r");
+        FILE *fic = fopen(check_matrix, "rb");
 
-    fgets(file_crypt, 255, fic);
+        fgets(check_matrix, 255, fic);
         
-    if(strlen(file_crypt) == 41){
+        if(strlen(check_matrix) == 41){
 
-        j++;
+            j++;
 
-    }
+        }
         
-    rewind(fic);
+        rewind(fic);
 
-    j = Check_Matrix(file_crypt, fic, j, "G4C=[", 6);
+        j = Check_Matrix(check_matrix, fic, j, "G4C=[", 6);
 
-    j = Check_bits_Matrix(file_crypt, fic, i, j, 9);
+        j = Check_bits_Matrix(check_matrix, fic, i, j, 9);
     
-    j = Check_Matrix(file_crypt, fic, j, " ", 2);
+        j = Check_Matrix(check_matrix, fic, j, " ", 2);
         
-    j = Check_bits_Matrix(file_crypt, fic, i, j, 9);
+        j = Check_bits_Matrix(check_matrix, fic, i, j, 9);
     
-    j = Check_Matrix(file_crypt, fic, j, " ", 2);
+        j = Check_Matrix(check_matrix, fic, j, " ", 2);
         
-    j = Check_bits_Matrix(file_crypt, fic, i, j, 9);
+        j = Check_bits_Matrix(check_matrix, fic, i, j, 9);
     
-    j = Check_Matrix(file_crypt, fic, j, " ", 2);
+        j = Check_Matrix(check_matrix, fic, j, " ", 2);
      
-    j = Check_bits_Matrix(file_crypt, fic, i, j, 9);
+        j = Check_bits_Matrix(check_matrix, fic, i, j, 9);
     
-    j = Check_Matrix(file_crypt, fic, j, "]", 2);
+        j = Check_Matrix(check_matrix, fic, j, "]", 2);
     
-    if(j == 38){
+        if(j != 38){
 
-        printf("\n The matrix is correct");
+            printf("\n The matrix is wrong");
+
+        }
 
     }
-
     
-      
-/*
-    printf("\n What do you want to do ? :\n 0 : Decrypt a file\n Any other number : Crypt a file\n Your answer : ");
+    printf("\n\n The matrix is correct \n\n What do you want to do ? :\n 0 : Decrypt a file\n Any other number : Crypt a file\n Your answer : ");
 
     scanf("%d", &choice);
 
@@ -137,7 +142,7 @@ int main(int argc, char *argv[])
 
     if(choice == 0){
     
-        printf("choose the file to decrypt : ");
+        printf("\n Choose the file to decrypt : ");
 
         fgets(file_crypt, 255, stdin);
 
@@ -206,14 +211,14 @@ int main(int argc, char *argv[])
                     letter_2[i] = 0;
 
                 }
-            }   
+            }
         }
 
         Close_File(fic, fic2);
     
     }else{
 
-        printf("choose the file to crypt : ");
+        printf("\n Choose the file to crypt : ");
 
         fgets(file_decrypt, 255, stdin);
 
@@ -275,5 +280,4 @@ int main(int argc, char *argv[])
         Close_File(fic, fic2);
 
     }
-    */
 }

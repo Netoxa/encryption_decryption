@@ -6,8 +6,7 @@
 #include <time.h>
 
 
-
-void Binary_to_Decimal(char *array, char final_letter, FILE *fic2){
+void Binary_to_Decimal(int *array, char final_letter, FILE *fic2){
 
     int i;
     int number = 128;
@@ -34,20 +33,119 @@ void Close_File(FILE *fic, FILE *fic2){
 
 }
 
+int Check_Matrix(char *file_crypt, FILE *fic, int j, char *check, int position){
+
+    fgets(file_crypt, position, fic);
+    
+    if(strcmp(file_crypt, check) == 0){
+
+        j++;
+
+    }
+
+    return j;
+
+}
+
 int main(int argc, char *argv[])
 {
 
     char file_crypt[256];
     char file_decrypt[256];
-    char letter_1[8] = {0};
-    char letter_2[8] = {0};
-    char letter_final[8] = {0};
+    char check_space;
+    int letter_1[8] = {0};
+    int letter_2[8] = {0};
+    int letter_final[8] = {0};
     char final_letter;
     int i;
+    int j = 0;
     int lettre;
     int check_word = 0;
-    int choice = 0;
+    int choice;
 
+    printf("choose the matrix file : ");
+
+    
+
+    fgets(file_crypt, 255, stdin);
+        
+        if(file_crypt[strlen(file_crypt) - 1] == '\n')
+                file_crypt[strlen(file_crypt) - 1] = '\0';
+
+    FILE *fic = fopen(file_crypt, "r");
+
+    fgets(file_crypt, 255, fic);
+        
+    if(strlen(file_crypt) == 41){
+
+        j++;
+
+    }
+       
+        
+    rewind(fic);
+
+    
+
+    j = Check_Matrix(file_crypt, fic, j, "G4C=[", 6);
+
+        
+    fgets(file_crypt, 9, fic);
+        
+    for(i = 0; i < 8; i++){
+        if(file_crypt[i] == '1')
+        j++;
+        if(file_crypt[i] == '0')
+        j++;
+        }
+    
+    j = Check_Matrix(file_crypt, fic, j, " ", 2);
+        
+    fgets(file_crypt, 9, fic);
+        
+        for(i = 0; i < 8; i++){
+        if(file_crypt[i] == '1')
+        j++;
+        if(file_crypt[i] == '0')
+        j++;
+        }
+    
+    j = Check_Matrix(file_crypt, fic, j, " ", 2);
+        
+    fgets(file_crypt, 9, fic);
+        
+        for(i = 0; i < 8; i++){
+        if(file_crypt[i] == '1')
+        j++;
+        if(file_crypt[i] == '0')
+        j++;
+        }
+    
+    j = Check_Matrix(file_crypt, fic, j, " ", 2);
+
+         
+
+        fgets(file_crypt, 9, fic);
+        
+        for(i = 0; i < 8; i++){
+        if(file_crypt[i] == '1')
+        j++;
+        if(file_crypt[i] == '0')
+        j++;
+        }
+    
+    j = Check_Matrix(file_crypt, fic, j, "]", 2);
+    
+
+    if(j == 38){
+
+        printf("\n The matrix is correct");
+
+    }
+
+    
+      
+/*
     printf("\n What do you want to do ? :\n 0 : Decrypt a file\n Any other number : Crypt a file\n Your answer : ");
 
     scanf("%d", &choice);
@@ -67,15 +165,16 @@ int main(int argc, char *argv[])
         for(i = 0; i < strlen(file_crypt) - 1; i++){
 
             file_decrypt[i] = file_crypt[i];
+
         }
 
         FILE *fic = fopen(file_crypt, "rb");
 
         FILE *fic2 = fopen(file_decrypt, "wb");
 
-        i = 7;
-
         while((lettre = fgetc(fic)) != EOF){
+
+            i = 7;
 
             if(check_word == 0){
 
@@ -91,19 +190,17 @@ int main(int argc, char *argv[])
     
                 check_word = 1;
 
-                i = 7;
-
             }else{
   
                 while(lettre != 0){
 
-                letter_2[i] = lettre % 2;
+                    letter_2[i] = lettre % 2;
 
-                lettre = lettre / 2;
+                    lettre = lettre / 2;
 
-                i--;
+                    i--;
 
-            }   
+                }   
         
                 check_word = 0;
 
@@ -126,9 +223,6 @@ int main(int argc, char *argv[])
                     letter_2[i] = 0;
 
                 }
-
-                i = 7;
-
             }   
         }
 
@@ -150,9 +244,11 @@ int main(int argc, char *argv[])
 
         FILE *fic2 = fopen(file_crypt, "wb");
 
-        i = 7;
+        
 
         while((lettre = fgetc(fic)) != EOF){
+
+            i = 7;
 
             while(lettre != 0){
 
@@ -191,12 +287,10 @@ int main(int argc, char *argv[])
                 letter_final[i] = 0;
                 
             }
-                
-            i = 7;
-            
         }
 
         Close_File(fic, fic2);
 
     }
+    */
 }

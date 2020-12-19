@@ -46,6 +46,26 @@ int Check_Matrix(char *file_crypt, FILE *fic, int j, char *check, int position){
     return j;
 
 }
+  
+int Check_bits_Matrix(char *file_crypt, FILE *fic, int i, int j, int position){
+
+fgets(file_crypt, 9, fic);
+        
+    for(i = 0; i < 8; i++){
+        
+        if(file_crypt[i] == '1')
+        
+            j++;
+        
+        if(file_crypt[i] == '0')
+        
+            j++;
+        
+    }
+        
+    return j;
+
+}
 
 int main(int argc, char *argv[])
 {
@@ -65,8 +85,6 @@ int main(int argc, char *argv[])
 
     printf("choose the matrix file : ");
 
-    
-
     fgets(file_crypt, 255, stdin);
         
         if(file_crypt[strlen(file_crypt) - 1] == '\n')
@@ -81,62 +99,27 @@ int main(int argc, char *argv[])
         j++;
 
     }
-       
         
     rewind(fic);
 
-    
-
     j = Check_Matrix(file_crypt, fic, j, "G4C=[", 6);
 
-        
-    fgets(file_crypt, 9, fic);
-        
-    for(i = 0; i < 8; i++){
-        if(file_crypt[i] == '1')
-        j++;
-        if(file_crypt[i] == '0')
-        j++;
-        }
+    j = Check_bits_Matrix(file_crypt, fic, i, j, 9);
     
     j = Check_Matrix(file_crypt, fic, j, " ", 2);
         
-    fgets(file_crypt, 9, fic);
-        
-        for(i = 0; i < 8; i++){
-        if(file_crypt[i] == '1')
-        j++;
-        if(file_crypt[i] == '0')
-        j++;
-        }
+    j = Check_bits_Matrix(file_crypt, fic, i, j, 9);
     
     j = Check_Matrix(file_crypt, fic, j, " ", 2);
         
-    fgets(file_crypt, 9, fic);
-        
-        for(i = 0; i < 8; i++){
-        if(file_crypt[i] == '1')
-        j++;
-        if(file_crypt[i] == '0')
-        j++;
-        }
+    j = Check_bits_Matrix(file_crypt, fic, i, j, 9);
     
     j = Check_Matrix(file_crypt, fic, j, " ", 2);
-
-         
-
-        fgets(file_crypt, 9, fic);
-        
-        for(i = 0; i < 8; i++){
-        if(file_crypt[i] == '1')
-        j++;
-        if(file_crypt[i] == '0')
-        j++;
-        }
+     
+    j = Check_bits_Matrix(file_crypt, fic, i, j, 9);
     
     j = Check_Matrix(file_crypt, fic, j, "]", 2);
     
-
     if(j == 38){
 
         printf("\n The matrix is correct");

@@ -49,19 +49,19 @@ int Check_Matrix(char *file_crypt, FILE *fic, int j, char *check, int position){
   
 int Check_bits_Matrix(char *file_crypt, FILE *fic, int i, int j, int position){
 
-fgets(file_crypt, 9, fic);
+    fgets(file_crypt, 9, fic);
         
-    for(i = 0; i < 8; i++){
+        for(i = 0; i < 8; i++){
         
-        if(file_crypt[i] == '1')
+            if(file_crypt[i] == '1')
         
-            j++;
+                j++;
         
-        if(file_crypt[i] == '0')
+            if(file_crypt[i] == '0')
         
-            j++;
+                j++;
         
-    }
+        }
         
     return j;
 

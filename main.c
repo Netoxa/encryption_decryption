@@ -27,13 +27,14 @@ void Binary_to_Decimal(int *array, char final_letter, FILE *fic2){
 
 }
 
-void Close_File_and_Free_table(FILE *fic, FILE *fic2, int *letter_1, int *letter_2){
+void Close_File_and_Free_table(FILE *fic, FILE *fic2, int *letter_1, int *letter_2, int *letter_final){
 
     fclose(fic);
     fclose(fic2);
 
     free(letter_1);
     free(letter_2);
+    free(letter_final);
 
 }
 
@@ -71,15 +72,15 @@ int Check_bits_Matrix(char *check_matrix, FILE *fic, int i, int j, int position)
 
 }
 
-int *Decimal_to_Binary(int i, int lettre){
+int *Decimal_to_Binary(int i, int letter){
 
     int *tab = malloc(sizeof(int) * 8);
 
-    while(lettre != 0){
+    while(letter != 0){
 
-        tab[i] = lettre % 2;
+        tab[i] = letter % 2;
 
-        lettre = lettre / 2;
+        letter = letter / 2;
 
         i--;
 
@@ -97,15 +98,16 @@ int main(int argc, char *argv[])
     char file_crypt[256];
     char file_decrypt[256];
     char check_matrix[256];
-    int *letter_1;
-    int *letter_2;
-    int letter_final[8];
+    int *letter_1 = malloc(sizeof(int) * 8);
+    int *letter_2 = malloc(sizeof(int) * 8);
+    int *letter_final = malloc(sizeof(int) * 8);
     char final_letter = 0;
     int i;
     int j = 0;
-    int lettre;
+    int letter;
     int check_word = 0;
     int choice;
+    FILE *fic;
 
     while(j != 38){
 
@@ -116,7 +118,7 @@ int main(int argc, char *argv[])
         if(check_matrix[strlen(check_matrix) - 1] == '\n')
             check_matrix[strlen(check_matrix) - 1] = '\0';
 
-        FILE *fic = fopen(check_matrix, "rb");
+        fic = fopen(check_matrix, "rb");
 
         fgets(check_matrix, 255, fic);
         
@@ -153,6 +155,8 @@ int main(int argc, char *argv[])
         }
 
     }
+
+    fclose(fic);
     
     printf("\n\n The matrix is correct \n\n What do you want to do ? :\n 0 : Decrypt a file\n Any other number : Crypt a file\n Your answer : ");
 
@@ -169,30 +173,26 @@ int main(int argc, char *argv[])
             if(file_crypt[strlen(file_crypt) - 1] == '\n')
                 file_crypt[strlen(file_crypt) - 1] = '\0';
 
-    
-        for(i = 0; i < strlen(file_crypt) - 1; i++){
-
-            file_decrypt[i] = file_crypt[i];
-
-        }
 
         FILE *fic = fopen(file_crypt, "rb");
+        
+        file_crypt[strlen(file_crypt) - 1] = '\0';
+        
+        FILE *fic2 = fopen(file_crypt, "wb");
 
-        FILE *fic2 = fopen(file_decrypt, "wb");
-
-        while((lettre = fgetc(fic)) != EOF){
+        while((letter = fgetc(fic)) != EOF){
 
             i = 7;
 
             if(check_word == 0){
 
-                letter_1 = Decimal_to_Binary(i, lettre);
+                letter_1 = Decimal_to_Binary(i, letter);
     
                 check_word = 1;
 
             }else{
   
-               letter_2 = Decimal_to_Binary(i, lettre); 
+               letter_2 = Decimal_to_Binary(i, letter); 
         
                 check_word = 0;
 
@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
             }
         }
 
-        Close_File_and_Free_table(fic, fic2, letter_1, letter_2);
+        Close_File_and_Free_table(fic, fic2, letter_1, letter_2, letter_final);
     
     }else{
 
@@ -238,11 +238,11 @@ int main(int argc, char *argv[])
 
         
 
-        while((lettre = fgetc(fic)) != EOF){
+        while((letter = fgetc(fic)) != EOF){
 
             i = 7;
 
-            letter_1 = Decimal_to_Binary(i, lettre);
+            letter_final = Decimal_to_Binary(i, letter);
 
             letter_1[0] = rand() % 2;
             letter_1[1] = letter_final[1];
@@ -273,7 +273,7 @@ int main(int argc, char *argv[])
             }
         }
 
-        Close_File_and_Free_table(fic, fic2, letter_1, letter_2);
+        Close_File_and_Free_table(fic, fic2, letter_1, letter_2, letter_final);
 
     }
 

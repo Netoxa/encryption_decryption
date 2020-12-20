@@ -27,10 +27,13 @@ void Binary_to_Decimal(int *array, char final_letter, FILE *fic2){
 
 }
 
-void Close_File(FILE *fic, FILE *fic2){
+void Close_File_and_Free_table(FILE *fic, FILE *fic2, int *letter_1, int *letter_2){
 
     fclose(fic);
     fclose(fic2);
+
+    free(letter_1);
+    free(letter_2);
 
 }
 
@@ -68,6 +71,23 @@ int Check_bits_Matrix(char *check_matrix, FILE *fic, int i, int j, int position)
 
 }
 
+int *Decimal_to_Binary(int i, int lettre){
+
+    int *tab = malloc(sizeof(int) * 8);
+
+    while(lettre != 0){
+
+        tab[i] = lettre % 2;
+
+        lettre = lettre / 2;
+
+        i--;
+
+    }
+
+    return tab;
+
+}
 
 
 int main(int argc, char *argv[])
@@ -77,8 +97,8 @@ int main(int argc, char *argv[])
     char file_crypt[256];
     char file_decrypt[256];
     char check_matrix[256];
-    int letter_1[8];
-    int letter_2[8];
+    int *letter_1;
+    int *letter_2;
     int letter_final[8];
     char final_letter = 0;
     int i;
@@ -166,29 +186,13 @@ int main(int argc, char *argv[])
 
             if(check_word == 0){
 
-                while(lettre != 0){
-
-                    letter_1[i] = lettre % 2;
-
-                    lettre = lettre / 2;
-
-                    i--;
-
-                }
+                letter_1 = Decimal_to_Binary(i, lettre);
     
                 check_word = 1;
 
             }else{
   
-                while(lettre != 0){
-
-                    letter_2[i] = lettre % 2;
-
-                    lettre = lettre / 2;
-
-                    i--;
-
-                }   
+               letter_2 = Decimal_to_Binary(i, lettre); 
         
                 check_word = 0;
 
@@ -214,7 +218,7 @@ int main(int argc, char *argv[])
             }
         }
 
-        Close_File(fic, fic2);
+        Close_File_and_Free_table(fic, fic2, letter_1, letter_2);
     
     }else{
 
@@ -238,15 +242,7 @@ int main(int argc, char *argv[])
 
             i = 7;
 
-            while(lettre != 0){
-
-                letter_final[i] = lettre % 2;
-
-                lettre = lettre / 2;
-
-                i--;
-
-            }
+            letter_1 = Decimal_to_Binary(i, lettre);
 
             letter_1[0] = rand() % 2;
             letter_1[1] = letter_final[1];
@@ -277,7 +273,10 @@ int main(int argc, char *argv[])
             }
         }
 
-        Close_File(fic, fic2);
+        Close_File_and_Free_table(fic, fic2, letter_1, letter_2);
 
     }
+
+    return 0;
+
 }

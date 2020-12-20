@@ -77,9 +77,9 @@ int main(int argc, char *argv[])
     char file_crypt[256];
     char file_decrypt[256];
     char check_matrix[256];
-    int letter_1[8] = {0};
-    int letter_2[8] = {0};
-    int letter_final[8] = {0};
+    int letter_1[8];
+    int letter_2[8];
+    int letter_final[8];
     char final_letter = 0;
     int i;
     int j = 0;

@@ -90,14 +90,20 @@ int main(int argc, char *argv[])
     int matrix_result[4] = {0};
     char final_letter = 0;
     int i;
-    int j = 0;
+    int k;
+    int j;
     int letter;
     int check_word = 0;
     int choice;
+    int check;
     FILE *fic;
     FILE *fic2;
 
-    while(j != 38){
+    while(j != 39){
+
+        j = 0;
+
+        check = 0;
 
         printf("\n Choose the matrix file : ");
 
@@ -111,11 +117,9 @@ int main(int argc, char *argv[])
 
         fgets(file, 255, fic);
 
-        if(strlen(file) == 41){
+        if(strlen(file) == 41)
 
             j++;
-
-        }
 
         rewind(fic);
 
@@ -137,45 +141,52 @@ int main(int argc, char *argv[])
 
         j = Check_Matrix(file, fic, j, "]", 2);
 
-        if(j != 38)
+        rewind(fic);
+
+        fscanf(fic, "%s %s %s %s", matrix[0], matrix[1], matrix[2], matrix[3]);
+
+        strncpy(matrix[0], matrix[0] + 5, 255);
+
+        matrix[3][strlen(matrix[3]) - 1] = '\0';
+
+        for(i = 0; i < 4; i++){
+
+            matrix_2[0][i] = matrix[i][0];
+            matrix_2[1][i] = matrix[i][1];
+            matrix_2[2][i] = matrix[i][2];
+            matrix_2[3][i] = matrix[i][3];
+            matrix_2[4][i] = matrix[i][4];
+            matrix_2[5][i] = matrix[i][5];
+            matrix_2[6][i] = matrix[i][6];
+            matrix_2[7][i] = matrix[i][7];
+        
+        }
+
+        for(i = 0; i < 8; i++){
+
+            for(k = 0; k < 4; k++){
+
+                if(strcmp(matrix_2[i], matrix_search[k]) == 0){
+
+                    matrix_result[k] = i;
+
+                    check++;
+
+                }
+            }
+        }
+
+        if(check == 4)
+
+            j++;
+
+        if(j != 39)
 
             printf("\n The matrix is wrong");
 
     }
 
     printf("\n The matrix is correct");
-
-    rewind(fic);
-
-    fscanf(fic, "%s %s %s %s", matrix[0], matrix[1], matrix[2], matrix[3]);
-
-    strncpy(matrix[0], matrix[0] + 5, 255);
-
-    matrix[3][strlen(matrix[3]) - 1] = '\0';
-
-    for(i = 0; i < 4; i++){
-
-        matrix_2[0][i] = matrix[i][0];
-        matrix_2[1][i] = matrix[i][1];
-        matrix_2[2][i] = matrix[i][2];
-        matrix_2[3][i] = matrix[i][3];
-        matrix_2[4][i] = matrix[i][4];
-        matrix_2[5][i] = matrix[i][5];
-        matrix_2[6][i] = matrix[i][6];
-        matrix_2[7][i] = matrix[i][7];
-        
-    }
-
-    for(i = 0; i < 8; i++){
-
-        for(j = 0; j < 4; j++){
-
-            if(strcmp(matrix_2[i], matrix_search[j]) == 0)
-
-                matrix_result[j] = i;
-                
-        }
-    }
 
     fclose(fic);
 

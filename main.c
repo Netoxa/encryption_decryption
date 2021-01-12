@@ -250,15 +250,13 @@ int main(int argc, char *argv[])
 
                 check_word = 0;
 
-                letter_final[0] = letter_1[matrix_result[0]];
-                letter_final[1] = letter_1[matrix_result[1]];
-                letter_final[2] = letter_1[matrix_result[2]];
-                letter_final[3] = letter_1[matrix_result[3]];
+                for(i = 0; i < 4; i++){
 
-                letter_final[4] = letter_2[matrix_result[0]];
-                letter_final[5] = letter_2[matrix_result[1]];
-                letter_final[6] = letter_2[matrix_result[2]];
-                letter_final[7] = letter_2[matrix_result[3]];
+                    letter_final[i] = letter_1[matrix_result[i]];
+
+                    letter_final[i + 4] = letter_2[matrix_result[i]];
+
+                }
 
                 Binary_to_Decimal(letter_final, final_letter, fic2);
 
@@ -271,9 +269,7 @@ int main(int argc, char *argv[])
                 }
             }
         }
-
-        Close_File(fic, fic2);
-
+        
     }else{
 
         printf("\n Choose the file to crypt : ");
@@ -303,25 +299,13 @@ int main(int argc, char *argv[])
 
             }
 
-            letter_1[0] = rand() % 2;
-            letter_1[5] = rand() % 2;
-            letter_1[6] = rand() % 2;
-            letter_1[7] = rand() % 2;
+            for(i = 0; i < 4; i++){
 
-            letter_1[matrix_result[0]] = letter_final[0];
-            letter_1[matrix_result[1]] = letter_final[1];
-            letter_1[matrix_result[2]] = letter_final[2];
-            letter_1[matrix_result[3]] = letter_final[3];
+                    letter_1[matrix_result[i]] = letter_final[i];
 
-            letter_2[0] = rand() % 2;
-            letter_2[5] = rand() % 2;
-            letter_2[6] = rand() % 2;
-            letter_2[7] = rand() % 2;
+                    letter_2[matrix_result[i]] = letter_final[i + 4];
 
-            letter_2[matrix_result[0]] = letter_final[4];
-            letter_2[matrix_result[1]] = letter_final[5];
-            letter_2[matrix_result[2]] = letter_final[6];
-            letter_2[matrix_result[3]] = letter_final[7];
+                }
 
             Binary_to_Decimal(letter_1, final_letter, fic2);
 
@@ -333,10 +317,9 @@ int main(int argc, char *argv[])
 
             }
         }
-
-        Close_File(fic, fic2);
-
     }
+
+    Close_File(fic, fic2);
 
     return 0;
 

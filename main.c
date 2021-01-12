@@ -5,15 +5,14 @@
 #include <string.h>
 #include <time.h>
 
-void Binary_to_Decimal(int *array, char final_letter, FILE *fic2);
+void Binary_to_Decimal(int *array, char final_letter, FILE *fic2, int number);
 void Close_File(FILE *fic, FILE *fic2);
 int Check_Matrix(char *check_matrix, FILE *fic, int j, char *check, int position);
 int Check_bits_Matrix(char *check_matrix, FILE *fic, int i, int j, int position);
 
-void Binary_to_Decimal(int *array, char final_letter, FILE *fic2){
+void Binary_to_Decimal(int *array, char final_letter, FILE *fic2, int number){
 
     int i;
-    int number = 128;
 
     for(i = 0; i < 8; i++){
 
@@ -258,18 +257,18 @@ int main(int argc, char *argv[])
 
                 }
 
-                Binary_to_Decimal(letter_final, final_letter, fic2);
+                Binary_to_Decimal(letter_final, final_letter, fic2, 128);
 
                 for(i = 0; i < 8; i++){
 
-                    letter_1[i] = 0;    
+                    letter_1[i] = 0;
 
                     letter_2[i] = 0;
 
                 }
             }
         }
-        
+
     }else{
 
         printf("\n Choose the file to crypt : ");
@@ -277,6 +276,7 @@ int main(int argc, char *argv[])
         fgets(file, 255, stdin);
 
         if(file[strlen(file) - 1] == '\n')
+
             file[strlen(file) - 1] = '\0';
 
         fic = fopen(file, "rb");
@@ -301,15 +301,15 @@ int main(int argc, char *argv[])
 
             for(i = 0; i < 4; i++){
 
-                    letter_1[matrix_result[i]] = letter_final[i];
+                letter_1[matrix_result[i]] = letter_final[i];
 
-                    letter_2[matrix_result[i]] = letter_final[i + 4];
+                letter_2[matrix_result[i]] = letter_final[i + 4];
 
-                }
+            }
 
-            Binary_to_Decimal(letter_1, final_letter, fic2);
+            Binary_to_Decimal(letter_1, final_letter, fic2, 128);
 
-            Binary_to_Decimal(letter_2, final_letter, fic2);
+            Binary_to_Decimal(letter_2, final_letter, fic2, 128);
 
             for(i = 0; i < 8; i++){
 

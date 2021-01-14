@@ -45,8 +45,6 @@ int Check_Matrix(char *file, FILE *fic, int j, char *check, int position){
 
         j++;
 
-
-
     return j;
 
 }
@@ -98,7 +96,7 @@ int main(int argc, char *argv[])
     FILE *fic;
     FILE *fic2;
 
-    while(j != 39){
+    while(j != 51){
 
         j = 0;
 
@@ -115,6 +113,8 @@ int main(int argc, char *argv[])
         fic = fopen(file, "rb");
 
         fgets(file, 255, fic);
+
+//------ Check matrix architecture ------//
 
         if(strlen(file) == 41)
 
@@ -140,7 +140,15 @@ int main(int argc, char *argv[])
 
         j = Check_Matrix(file, fic, j, "]", 2);
 
+//---------------------------------------//
+
+        if(j != 38)
+
+            printf("\n The matrix architecture is wrong");
+
         rewind(fic);
+
+//------ Take the matrix ------//
 
         fscanf(fic, "%s %s %s %s", matrix[0], matrix[1], matrix[2], matrix[3]);
 
@@ -175,11 +183,28 @@ int main(int argc, char *argv[])
             }
         }
 
+//-----------------------------//
+
+//------ Check the matrix ------//
+
         if(check == 4)
 
             j++;
 
-        if(j != 39)
+        for(i = 0; i < 4; i++){
+
+            for(k = 0; k < 4; k++){
+
+                if((i != k) && (matrix_result[i] != matrix_result[k]))
+
+                    j++;
+
+            }
+        }
+
+//------------------------------//
+            
+        if(j != 51)
 
             printf("\n The matrix is wrong");
 
@@ -223,6 +248,9 @@ int main(int argc, char *argv[])
 
             if(check_word == 0){
 
+                
+//------ Decimal -> Binary ------//
+
                 while(letter != 0){
 
                     letter_1[i] = letter % 2;
@@ -233,9 +261,13 @@ int main(int argc, char *argv[])
 
                 }
 
+//-------------------------------//
+
                 check_word = 1;
 
             }else{
+
+//------ Decimal -> Binary ------//
 
                 while(letter != 0){
 
@@ -247,7 +279,11 @@ int main(int argc, char *argv[])
 
                 }
 
+//-------------------------------//
+
                 check_word = 0;
+
+//------ Insert data with matrix ------//
 
                 for(i = 0; i < 4; i++){
 
@@ -257,13 +293,15 @@ int main(int argc, char *argv[])
 
                 }
 
+//-------------------------------------//
+
                 Binary_to_Decimal(letter_final, final_letter, fic2, 128);
 
-                for(i = 0; i < 8; i++){
+                for(i = 0; i < 4; i++){
 
-                    letter_1[i] = 0;
+                    letter_1[matrix_result[i]] = 0;
 
-                    letter_2[i] = 0;
+                    letter_2[matrix_result[i]] = 0;
 
                 }
             }
@@ -289,6 +327,8 @@ int main(int argc, char *argv[])
 
             i = 7;
 
+//------ Decimal -> Binary ------//
+
             while(letter != 0){
 
                 letter_final[i] = letter % 2;
@@ -299,6 +339,10 @@ int main(int argc, char *argv[])
 
             }
 
+//-------------------------------//
+
+//------ Insert data with matrix ------//
+
             for(i = 0; i < 4; i++){
 
                 letter_1[matrix_result[i]] = letter_final[i];
@@ -307,15 +351,16 @@ int main(int argc, char *argv[])
 
             }
 
+//-------------------------------------//
+
             Binary_to_Decimal(letter_1, final_letter, fic2, 128);
 
             Binary_to_Decimal(letter_2, final_letter, fic2, 128);
 
-            for(i = 0; i < 8; i++){
+            for(i = 0; i < 8; i++)
 
                 letter_final[i] = 0;
 
-            }
         }
     }
 
